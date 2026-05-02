@@ -90,6 +90,26 @@ export default function App() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
 
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isAnalyzing) {
+      const messages = [
+        "Reading the entire document...",
+        "Extracting key concepts...",
+        "Creating bite-sized chunks...",
+        "Formatting for optimal learning..."
+      ];
+      let i = 0;
+      setLoadingMessage(messages[0]);
+      interval = setInterval(() => {
+        i = (i + 1) % messages.length;
+        setLoadingMessage(messages[i]);
+      }, 2500);
+    }
+    return () => clearInterval(interval);
+  }, [isAnalyzing]);
+
   useEffect(() => {
     if (chunks[currentIndex]) {
       setCurrentChunkText(chunks[currentIndex].text);
@@ -614,12 +634,32 @@ export default function App() {
 
             <div className="workspace-content">
               {inputMethod === 'text' && (
+                <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                 <textarea
                   className="main-textarea"
                   placeholder={d.placeholderText}
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
                 />
+                <div style={{ marginTop: '12px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                  <button 
+                    onClick={() => setInputText("The human immune system is a highly complex network of cells, tissues, and organs that work together to defend the body against attacks by foreign invaders. These are primarily microbes—tiny organisms such as bacteria, parasites, and fungi that can cause infections. Viruses also cause infections, but are too primitive to be classified as living organisms. The immune system's primary task is to distinguish between self and non-self. When it detects a non-self substance (antigen), it triggers an immune response. This involves the activation of various white blood cells, including macrophages, T cells, and B cells. Macrophages engulf and digest the invader. T cells destroy infected cells and help coordinate the overall response. B cells produce antibodies, which are specialized proteins that lock onto specific antigens, marking them for destruction. Memory cells are also created, allowing the immune system to respond more rapidly and effectively if the same pathogen is encountered again in the future. However, sometimes the immune system goes awry, mistakenly attacking the body's own healthy cells, leading to autoimmune diseases like rheumatoid arthritis or lupus.")}
+                    style={{ fontSize: '0.85rem', padding: '6px 12px', backgroundColor: 'transparent', border: '1px solid var(--border-color, #E2E8F0)', borderRadius: '20px', cursor: 'pointer', color: 'var(--text-secondary, #64748b)', display: 'flex', alignItems: 'center', gap: '4px', transition: 'all 0.2s' }}
+                    onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'var(--bg-hover, #F8FAFC)'; e.currentTarget.style.borderColor = 'var(--accent-teal, #1B998B)'; e.currentTarget.style.color = 'var(--accent-teal, #1B998B)'; }}
+                    onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.borderColor = 'var(--border-color, #E2E8F0)'; e.currentTarget.style.color = 'var(--text-secondary, #64748b)'; }}
+                  >
+                    💡 Try Medical Paper
+                  </button>
+                  <button 
+                    onClick={() => setInputText("Inflation is a measure of the rate of rising prices of goods and services in an economy. Inflation can occur when prices rise due to increases in production costs, such as raw materials and wages. A surge in demand for products and services can cause inflation as consumers are willing to pay more for the product. Inflation is closely monitored by the Federal Reserve, which sets monetary policy to keep inflation at a target rate of 2%. Inflation can be viewed positively or negatively depending on the individual viewpoint and rate of change. Those with tangible assets, like property or stocked commodities, may like to see some inflation as that raises the value of their assets. People holding cash may not like inflation, as it erodes the value of their cash holdings. The Consumer Price Index (CPI) is a measure that examines the weighted average of prices of a basket of consumer goods and services, such as transportation, food, and medical care.")}
+                    style={{ fontSize: '0.85rem', padding: '6px 12px', backgroundColor: 'transparent', border: '1px solid var(--border-color, #E2E8F0)', borderRadius: '20px', cursor: 'pointer', color: 'var(--text-secondary, #64748b)', display: 'flex', alignItems: 'center', gap: '4px', transition: 'all 0.2s' }}
+                    onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'var(--bg-hover, #F8FAFC)'; e.currentTarget.style.borderColor = 'var(--accent-teal, #1B998B)'; e.currentTarget.style.color = 'var(--accent-teal, #1B998B)'; }}
+                    onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.borderColor = 'var(--border-color, #E2E8F0)'; e.currentTarget.style.color = 'var(--text-secondary, #64748b)'; }}
+                  >
+                    💡 Try Financial Report
+                  </button>
+                </div>
+              </div>
               )}
 
               {inputMethod === 'image' && (
