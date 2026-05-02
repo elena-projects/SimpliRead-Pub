@@ -1,0 +1,6 @@
+{
+  "name": "SimpliRead",
+  "description": "Reduces working memory overload by breaking long texts into small chunks for easier reading.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
