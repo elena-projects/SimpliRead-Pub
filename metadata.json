@@ -1,6 +1,6 @@
 {
-  "name": "SimpliRead",
-  "description": "Reduces working memory overload by breaking long texts into small chunks for easier reading.",
+  "name": "CogniCard Academic",
+  "description": "An ELITE academic research assistant designed to distill complex technical excerpts into essential logical nodes with rigorous deep-dive analysis.",
   "requestFramePermissions": [],
   "majorCapabilities": []
 }
